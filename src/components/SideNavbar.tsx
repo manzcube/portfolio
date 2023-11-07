@@ -1,9 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SideNavbar = () => {
+  const [activeSection, setActiveSection] = useState("introduction");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get the scroll position
+      const scrollY = window.scrollY;
+
+      // Calc the position of each section
+      const introductionSection = document.getElementById("introduction");
+      const techSection = document.getElementById("tech");
+      const languagesSection = document.getElementById("languages");
+      const experienceSection = document.getElementById("experience");
+
+      // Check if the elements exist before comparing their positions
+      if (
+        introductionSection &&
+        techSection &&
+        languagesSection &&
+        experienceSection
+      ) {
+        // Calculate the position of each section
+        const introductionSectionTop = introductionSection.offsetTop - 100;
+        const techSectionTop = techSection.offsetTop - 100;
+        const languagesSectionTop = languagesSection.offsetTop - 100;
+        const experienceSectionTop = experienceSection.offsetTop - 100;
+
+        // Determine which section is in view
+        if (scrollY >= introductionSectionTop && scrollY < techSectionTop) {
+          setActiveSection("introduction");
+        } else if (scrollY >= techSectionTop && scrollY < languagesSectionTop) {
+          setActiveSection("tech");
+        } else if (
+          scrollY >= languagesSectionTop &&
+          scrollY < experienceSectionTop
+        ) {
+          setActiveSection("languages");
+        } else if (scrollY >= experienceSectionTop) {
+          setActiveSection("experience");
+        }
+      }
+    };
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="hidden sm:flex h-screen bg-sky-800 flex flex-col fixed left-0 w-20 py-44 justify-between items-center">
-      <a className="hover:bg-blue-400 p-3 hover:rounded" href="#">
+      <a
+        className={`${
+          activeSection === "introduction" ? "bg-blue-400 p-2" : "p-4"
+        } transition-all duration-300 rounded-md`}
+        href="#introduction"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -19,7 +73,12 @@ const SideNavbar = () => {
           />
         </svg>
       </a>
-      <a className="hover:bg-blue-400 p-3 hover:rounded" href="#tech">
+      <a
+        className={`${
+          activeSection === "tech" ? "bg-blue-400 p-2" : "p-4"
+        } transition-all duration-300 rounded-md`}
+        href="#tech"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -35,7 +94,12 @@ const SideNavbar = () => {
           />
         </svg>
       </a>
-      <a className="hover:bg-blue-400 p-3 hover:rounded" href="#languages">
+      <a
+        className={`${
+          activeSection === "languages" ? "bg-blue-400 p-2" : "p-4"
+        } transition-all duration-300 rounded-md`}
+        href="#languages"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -51,7 +115,12 @@ const SideNavbar = () => {
           />
         </svg>
       </a>
-      <a className="hover:bg-blue-400 p-3 hover:rounded" href="#experience">
+      <a
+        className={`${
+          activeSection === "experience" ? "bg-blue-400 p-2" : "p-4"
+        } transition-all duration-300 rounded-md`}
+        href="#experience"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

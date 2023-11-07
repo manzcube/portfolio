@@ -2,16 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
 
 html,
 body {
   scroll-behavior: smooth;
 }
+html::-webkit-scrollbar {
+  width: 0;
+}
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Rubik", sans-serif;
   overflow-x: hidden;
 }
 
@@ -44,4 +47,14 @@ code {
   top: 0;
   left: 20px; /* Adjust this value to position the line where you want it initially */
   transition: left 0.3s ease; /* Add a smooth transition effect */
+}
+
+.Project:hover img {
+  filter: brightness(50%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.Project:hover span {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
